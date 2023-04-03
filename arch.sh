@@ -119,4 +119,5 @@ code --force \
   --install-extension pkief.material-icon-theme \
   --install-extension formulahendry.code-runner \
   --install-extension formulahendry.terminal \
-  --install-extension mike-co.import-sorter
+  --install-extension mike-co.import-sorter \
+  --install-extension golang.go
