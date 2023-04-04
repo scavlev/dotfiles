@@ -6,6 +6,7 @@ $SCRIPT_LOCATION/symlink_dotfiles.sh
 
 yay --needed --noconfirm --sync \
   jq \
+  mc \
   wget \
   httpie \
   htop \
