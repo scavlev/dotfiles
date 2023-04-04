@@ -18,7 +18,8 @@ yay --needed --noconfirm --sync \
   libreoffice-still \
   google-chrome \
   visual-studio-code-bin \
-  plank
+  plank \
+  iso-flag-png
 
 # Linuxbrew
 
