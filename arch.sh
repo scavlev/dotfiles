@@ -23,7 +23,10 @@ yay --needed --noconfirm --sync \
 
 export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
 
-NONINTERACTIVE=1 bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+command -v brew >/dev/null 2>&1 || {
+  echo >&2 "Installing Homebrew"
+  NONINTERACTIVE=1 bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+}
 
 brew analytics off
 brew cleanup -s
@@ -53,13 +56,16 @@ brew install \
   yq \
   cmctl
 
+brew remove --ignore-dependencies -f \
+  pkg-config
+
 # Zsh
 
 sudo chsh -s /bin/zsh $USER
 
 echo "skip_global_compinit=1" >~/.zshenv
 
-bash -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+bash -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 
 git -C ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions pull || git clone --depth 1 https://github.com/zsh-users/zsh-autosuggestions.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 git -C ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting pull || git clone --depth 1 https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
@@ -100,7 +106,9 @@ sdk install gradle </dev/null
 
 # JetBrains toolbox
 
-wget -qO- "https://data.services.jetbrains.com/products/download?platform=linux&code=TBA" | sudo tar -xz --strip-components=1 -C /usr/local/bin
+command -v jetbrains-toolbox >/dev/null 2>&1 || {
+  wget -qO- "https://data.services.jetbrains.com/products/download?platform=linux&code=TBA" | sudo tar -xz --strip-components=1 -C /usr/local/bin
+}
 
 # Vscode plugins
 
