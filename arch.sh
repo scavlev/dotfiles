@@ -21,7 +21,8 @@ yay --needed --noconfirm --sync \
   plank \
   iso-flag-png \
   baobab \
-  plymouth
+  plymouth \
+  ncdu
 
 # Linuxbrew
 
