@@ -19,7 +19,9 @@ yay --needed --noconfirm --sync \
   google-chrome \
   visual-studio-code-bin \
   plank \
-  iso-flag-png
+  iso-flag-png \
+  baobab \
+  plymouth
 
 # Linuxbrew
 
