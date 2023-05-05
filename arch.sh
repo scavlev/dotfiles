@@ -37,7 +37,6 @@ brew analytics off
 brew cleanup -s
 
 brew install \
-  git \
   fzf \
   dive \
   kubernetes-cli \
@@ -133,4 +132,5 @@ code --force \
   --install-extension formulahendry.code-runner \
   --install-extension formulahendry.terminal \
   --install-extension mike-co.import-sorter \
-  --install-extension golang.go
+  --install-extension golang.go \
+  --install-extension ms-playwright.playwright
