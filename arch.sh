@@ -6,6 +6,7 @@ $SCRIPT_LOCATION/symlink_dotfiles.sh
 
 yay --needed --noconfirm --sync \
   jq \
+  yq \
   mc \
   wget \
   httpie \
@@ -22,6 +23,19 @@ yay --needed --noconfirm --sync \
   iso-flag-png \
   baobab \
   plymouth \
+  go \
+  fzf \
+  dive \
+  aws-cli-v2 \
+  pyenv \
+  ansible \
+  kubectl \
+  helm \
+  terraform \
+  terragrunt \
+  packer \
+  k9s \
+  yarn \
   ncdu
 
 # Linuxbrew
@@ -36,32 +50,15 @@ command -v brew >/dev/null 2>&1 || {
 brew analytics off
 brew cleanup -s
 
-brew install \
-  fzf \
-  dive \
-  kubernetes-cli \
-  helm \
-  awscli \
+brew install --ignore-dependencies \
   krew \
-  k9s \
   kube-ps1 \
   boz/repo/kail \
   velero \
-  yarn \
-  pyenv \
-  ansible \
-  packer \
-  terraform \
-  terragrunt \
-  go \
   sdkman/tap/sdkman-cli \
   asdf \
   azure-cli \
-  yq \
   cmctl
-
-brew remove --ignore-dependencies -f \
-  pkg-config
 
 # Zsh
 
