@@ -36,7 +36,8 @@ yay --needed --noconfirm --sync \
   packer \
   k9s \
   yarn \
-  ncdu
+  ncdu \
+  postman-bin
 
 # Linuxbrew
 
