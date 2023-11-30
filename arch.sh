@@ -14,6 +14,7 @@ yay --needed --noconfirm --sync \
   git \
   docker \
   docker-compose \
+  docker-buildx \
   zsh \
   solaar \
   libreoffice-still \
@@ -34,10 +35,12 @@ yay --needed --noconfirm --sync \
   terraform \
   terragrunt \
   packer \
-  k9s \
   yarn \
   ncdu \
-  postman-bin
+  postman-bin \
+  pass \
+  xclip \
+  mkcert
 
 # Linuxbrew
 
@@ -59,7 +62,13 @@ brew install --ignore-dependencies \
   sdkman/tap/sdkman-cli \
   asdf \
   azure-cli \
-  cmctl
+  cmctl \
+  fairwindsops/tap/nova \
+  istioctl \
+  utkuozdemir/pv-migrate/pv-migrate \
+  vault \
+  int128/kubelogin/kubelogin \
+  k9s
 
 # Zsh
 
@@ -131,4 +140,5 @@ code --force \
   --install-extension formulahendry.terminal \
   --install-extension mike-co.import-sorter \
   --install-extension golang.go \
-  --install-extension ms-playwright.playwright
+  --install-extension ms-playwright.playwright \
+  --install-extension ms-kubernetes-tools.vscode-kubernetes-tools
