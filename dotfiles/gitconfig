@@ -19,3 +19,9 @@ cmd = code --wait --diff $LOCAL $REMOTE
 guitool = vscode
 [mergetool "vscode"]
 cmd = code --wait $MERGED
+
+[user]
+useConfigOnly = true
+
+[rebase]
+autoStash = true
