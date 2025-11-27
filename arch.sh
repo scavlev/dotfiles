@@ -81,6 +81,7 @@ yay --needed --noconfirm --sync \
   packer \
   yarn \
   ncdu \
+  zip \
   postman-bin \
   pass \
   mkcert \
