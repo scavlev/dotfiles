@@ -127,7 +127,7 @@ sudo curl -s https://raw.githubusercontent.com/blendle/kns/master/bin/ktx -o /us
 #===============================================================================
 
 echo "Setting up Node.js with mise..."
-echo 'eval "$(mise activate zsh)"' >> ~/.zshrc
+eval "$(mise activate bash)"
 mise use --global node@latest
 
 #===============================================================================
@@ -150,8 +150,13 @@ sdk install gradle </dev/null
 echo "Checking for JetBrains Toolbox..."
 if ! command -v jetbrains-toolbox >/dev/null 2>&1; then
   echo "Installing JetBrains Toolbox..."
+  mkdir -p "$HOME/.local/jetbrains-toolbox"
   wget -qO- "https://data.services.jetbrains.com/products/download?platform=linux&code=TBA" | \
-    sudo tar -xz --strip-components=1 -C /usr/local/bin
+    tar -xz -C "$HOME/.local/jetbrains-toolbox" --strip-components=1
+  sudo ln -sf "$HOME/.local/jetbrains-toolbox/bin/jetbrains-toolbox" /usr/local/bin/jetbrains-toolbox
+  echo "JetBrains Toolbox installed to ~/.local/jetbrains-toolbox and symlinked to /usr/local/bin"
+else
+  echo "JetBrains Toolbox is already installed."
 fi
 
 #===============================================================================
