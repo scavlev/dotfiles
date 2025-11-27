@@ -44,7 +44,8 @@ brew install --ignore-dependencies \
   terragrunt \
   utkuozdemir/pv-migrate/pv-migrate \
   int128/kubelogin/kubelogin \
-  k9s
+  k9s \
+  biome
 
 #===============================================================================
 # Package Installation (yay)

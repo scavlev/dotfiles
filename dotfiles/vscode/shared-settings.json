@@ -1,0 +1,23 @@
+{
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "editor.formatOnSave": true,
+  "editor.guides.bracketPairs": true,
+  "editor.bracketPairColorization.enabled": true,
+  "editor.renderWhitespace": "selection",
+  "files.autoSave": "afterDelay",
+  "files.autoSaveDelay": 1000,
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+  "git.autofetch": true,
+  "git.confirmSync": false,
+  "workbench.iconTheme": "material-icon-theme",
+  "telemetry.feedback.enabled": false,
+  "telemetry.editStats.enabled": false,
+  "telemetry.telemetryLevel": "off",
+  "gitlens.telemetry.enabled": false,
+  "code-runner.enableAppInsights": false,
+  "terminal.enableAppInsights": false,
+  "chat.agent.maxRequests": 50
+}
+

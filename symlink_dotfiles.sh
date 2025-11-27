@@ -30,3 +30,7 @@ ln -sfn $SCRIPT_LOCATION/dotfiles/nemo/vscode.nemo_action ~/.local/share/nemo/ac
 mkdir -p ~/.config/k9s
 [ -f ~/.config/k9s/plugins.yaml ] && [ ! -L ~/.config/k9s/plugins.yaml ] && mv ~/.config/k9s/plugins.yaml ~/.config/k9s/plugins.yaml.bak
 ln -sfn $SCRIPT_LOCATION/dotfiles/k9s/plugins.yaml ~/.config/k9s/plugins.yaml
+
+# VS Code settings
+
+$SCRIPT_LOCATION/apply_vscode_settings.sh
