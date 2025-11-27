@@ -1,57 +1,12 @@
-export ZSH="$HOME/.oh-my-zsh"
-
-zstyle ':omz:update' mode auto
-zstyle ':omz:update' frequency 7
-
-zstyle ':completion:*:*:docker:*' option-stacking yes
-zstyle ':completion:*:*:docker-*:*' option-stacking yes
+export EDITOR=nano
+export BROWSER=chrome
 
 ZSH_THEME="robbyrussell"
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=250'
 
-export EDITOR=nano
+dotfiles() { ~/.dotfiles/arch.sh; }
 
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init --path)"
-
-export SDKMAN_DIR=$(brew --prefix sdkman-cli)/libexec
-
-export SHOW_AWS_PROMPT=false
-
-plugins=(
-  brew
-  git
-  git-extras
-  fzf
-  sudo
-  zsh-autosuggestions
-  zsh-syntax-highlighting
-  httpie
-  history
-  extract
-  urltools
-  encode64
-  jsontools
-  aws
-  kubectl
-  kube-ps1
-  helm
-  zsh-sdkman
-  asdf
-  terraform
-  docker
-)
-
-alias tg="terragrunt"
-
-FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
-
-source $ZSH/oh-my-zsh.sh
-
-dotfiles() { ~/.dotfiles/arch.sh; }
 
 # Docker
 # Stop all containers
@@ -60,3 +15,19 @@ dks() { docker kill $(docker ps -q) "$@"; }
 dkrm() { docker rm $(docker ps -a -q) "$@"; }
 # Delete all images
 dkrmi() { docker rmi $(docker images -q) "$@"; }
+
+source /home/linuxbrew/.linuxbrew/opt/antidote/share/antidote/antidote.zsh
+
+antidote load
+
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+
+alias tg="terragrunt"
+
+eval "$(mise activate zsh)"
+
+export SDKMAN_DIR=$(brew --prefix sdkman-cli)/libexec
+[[ -s "${SDKMAN_DIR}/bin/sdkman-init.sh" ]] && source "${SDKMAN_DIR}/bin/sdkman-init.sh"
+
+RPROMPT='$(kube_ps1)'
+eval "$(mise activate zsh)"

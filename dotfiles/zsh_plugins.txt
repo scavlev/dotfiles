@@ -1,0 +1,15 @@
+mattmc3/ez-compinit
+
+getantidote/use-omz
+ohmyzsh/ohmyzsh path:lib
+ohmyzsh/ohmyzsh path:plugins/fzf
+ohmyzsh/ohmyzsh path:plugins/kubectl
+ohmyzsh/ohmyzsh path:plugins/terraform
+ohmyzsh/ohmyzsh path:plugins/mise
+ohmyzsh/ohmyzsh path:plugins/kube-ps1
+
+matthieusb/zsh-sdkman
+
+mattmc3/zfunctions
+zsh-users/zsh-autosuggestions
+zsh-users/zsh-syntax-highlighting

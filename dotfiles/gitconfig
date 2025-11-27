@@ -25,3 +25,6 @@ useConfigOnly = true
 
 [rebase]
 autoStash = true
+
+[credential]
+helper = /usr/lib/git-core/git-credential-libsecret

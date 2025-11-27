@@ -1,9 +1,56 @@
 #!/bin/bash
 
-export SCRIPT_LOCATION=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
+#===============================================================================
+# Arch Linux System Setup Script
+# This script installs and configures essential tools and applications
+#===============================================================================
 
+# Determine script location and run dotfiles symlink script
+echo "Symlinking dotfiles..."
+export SCRIPT_LOCATION=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
 $SCRIPT_LOCATION/symlink_dotfiles.sh
 
+#===============================================================================
+# Homebrew (Linuxbrew) Setup
+#===============================================================================
+
+echo "Configuring Homebrew (Linuxbrew)..."
+export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
+
+# Install Homebrew if not already installed
+if ! command -v brew >/dev/null 2>&1; then
+  echo "Installing Homebrew..."
+  NONINTERACTIVE=1 bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
+
+# Configure Homebrew
+echo "Disabling Homebrew analytics and cleaning up..."
+brew analytics off
+brew cleanup -s
+
+echo "Installing tools via Homebrew..."
+brew install --ignore-dependencies \
+  krew \
+  kube-ps1 \
+  boz/repo/kail \
+  velero \
+  sdkman/tap/sdkman-cli \
+  mise \
+  azure-cli \
+  cmctl \
+  fairwindsops/tap/nova \
+  istioctl \
+  antidote \
+  terragrunt \
+  utkuozdemir/pv-migrate/pv-migrate \
+  int128/kubelogin/kubelogin \
+  k9s
+
+#===============================================================================
+# Package Installation (yay)
+#===============================================================================
+
+echo "Installing essential packages with yay..."
 yay --needed --noconfirm --sync \
   jq \
   yq \
@@ -20,108 +67,97 @@ yay --needed --noconfirm --sync \
   libreoffice-still \
   google-chrome \
   visual-studio-code-bin \
-  plank \
   iso-flag-png \
   baobab \
   plymouth \
   go \
   fzf \
   dive \
-  aws-cli-v2 \
   pyenv \
   ansible \
   kubectl \
   helm \
   terraform \
-  terragrunt \
   packer \
   yarn \
   ncdu \
   postman-bin \
   pass \
-  xclip \
-  mkcert
+  mkcert \
+  coolercontrol-bin \
+  coolercontrold-bin \
+  brave-bin
 
-# Linuxbrew
+#===============================================================================
+# Zsh Configuration
+#===============================================================================
 
-export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
+echo "Configuring Zsh as default shell if needed..."
+if [ "$SHELL" != "/bin/zsh" ]; then
+  echo "Setting zsh as default shell..."
+  sudo chsh -s /bin/zsh $USER
+fi
 
-command -v brew >/dev/null 2>&1 || {
-  echo >&2 "Installing Homebrew"
-  NONINTERACTIVE=1 bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-}
+#===============================================================================
+# Docker Configuration
+#===============================================================================
 
-brew analytics off
-brew cleanup -s
-
-brew install --ignore-dependencies \
-  krew \
-  kube-ps1 \
-  boz/repo/kail \
-  velero \
-  sdkman/tap/sdkman-cli \
-  asdf \
-  azure-cli \
-  cmctl \
-  fairwindsops/tap/nova \
-  istioctl \
-  utkuozdemir/pv-migrate/pv-migrate \
-  vault \
-  int128/kubelogin/kubelogin \
-  k9s
-
-# Zsh
-
-sudo chsh -s /bin/zsh $USER
-
-echo "skip_global_compinit=1" >~/.zshenv
-
-[ ! -d ~/.oh-my-zsh ] && bash -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
-
-git -C ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions pull || git clone --depth 1 https://github.com/zsh-users/zsh-autosuggestions.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-git -C ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting pull || git clone --depth 1 https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-git -C ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-sdkman pull || git clone --depth 1 https://github.com/matthieusb/zsh-sdkman.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-sdkman
-
-# Docker
-
+echo "Configuring Docker group and service..."
 sudo groupadd -f docker
 sudo usermod -aG docker $USER
 
+# Enable and start Docker service
 sudo systemctl enable --now docker.service
 
-# Kube
+#===============================================================================
+# Kubernetes Tools
+#===============================================================================
 
-sudo curl -s https://raw.githubusercontent.com/blendle/kns/master/bin/kns -o /usr/local/bin/kns && sudo chmod +x $_
-sudo curl -s https://raw.githubusercontent.com/blendle/kns/master/bin/ktx -o /usr/local/bin/ktx && sudo chmod +x $_
+echo "Installing Kubernetes tools (kns, ktx)..."
+sudo curl -s https://raw.githubusercontent.com/blendle/kns/master/bin/kns -o /usr/local/bin/kns && \
+  sudo chmod +x /usr/local/bin/kns
 
-# Node
+# Install ktx (Kubernetes context switcher)
+sudo curl -s https://raw.githubusercontent.com/blendle/kns/master/bin/ktx -o /usr/local/bin/ktx && \
+  sudo chmod +x /usr/local/bin/ktx
 
-source $(brew --prefix asdf)/libexec/asdf.sh
+#===============================================================================
+# Node.js Setup (via mise)
+#===============================================================================
 
-rm -f ~/.asdf/shims/*
-asdf reshim
+echo "Setting up Node.js with mise..."
+echo 'eval "$(mise activate zsh)"' >> ~/.zshrc
+mise use --global node@latest
 
-asdf plugin add nodejs https://github.com/asdf-vm/asdf-nodejs.git
-asdf install nodejs latest
-asdf global nodejs latest
-npm install -g npm
+#===============================================================================
+# SDKMAN Setup (Java, Gradle, VisualVM)
+#===============================================================================
 
-# Sdkman
-
+echo "Configuring SDKMAN and installing Java tools..."
 export SDKMAN_DIR=$(brew --prefix sdkman-cli)/libexec
 source $SDKMAN_DIR/bin/sdkman-init.sh
 
+# Install Java development tools
 sdk install java </dev/null
 sdk install visualvm </dev/null
 sdk install gradle </dev/null
 
-# JetBrains toolbox
+#===============================================================================
+# JetBrains Toolbox
+#===============================================================================
 
-command -v jetbrains-toolbox >/dev/null 2>&1 || {
-  wget -qO- "https://data.services.jetbrains.com/products/download?platform=linux&code=TBA" | sudo tar -xz --strip-components=1 -C /usr/local/bin
-}
+echo "Checking for JetBrains Toolbox..."
+if ! command -v jetbrains-toolbox >/dev/null 2>&1; then
+  echo "Installing JetBrains Toolbox..."
+  wget -qO- "https://data.services.jetbrains.com/products/download?platform=linux&code=TBA" | \
+    sudo tar -xz --strip-components=1 -C /usr/local/bin
+fi
 
-# Vscode plugins
+#===============================================================================
+# VS Code Extensions
+#===============================================================================
+
+echo "Installing VS Code extensions..."
 
 code --force \
   --install-extension editorconfig.editorconfig \
