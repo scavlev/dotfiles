@@ -184,4 +184,6 @@ code --force \
   --install-extension mike-co.import-sorter \
   --install-extension golang.go \
   --install-extension ms-playwright.playwright \
-  --install-extension ms-kubernetes-tools.vscode-kubernetes-tools
+  --install-extension ms-kubernetes-tools.vscode-kubernetes-tools \
+  --install-extension biomejs.biome
+
