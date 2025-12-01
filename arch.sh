@@ -74,7 +74,6 @@ yay --needed --noconfirm --sync \
   go \
   fzf \
   dive \
-  pyenv \
   ansible \
   kubectl \
   helm \
