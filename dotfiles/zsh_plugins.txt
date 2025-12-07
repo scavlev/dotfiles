@@ -7,6 +7,7 @@ ohmyzsh/ohmyzsh path:plugins/kubectl
 ohmyzsh/ohmyzsh path:plugins/terraform
 ohmyzsh/ohmyzsh path:plugins/mise
 ohmyzsh/ohmyzsh path:plugins/kube-ps1
+ohmyzsh/ohmyzsh path:plugins/aws
 
 matthieusb/zsh-sdkman
 

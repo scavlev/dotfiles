@@ -34,3 +34,7 @@ ln -sfn $SCRIPT_LOCATION/dotfiles/k9s/plugins.yaml ~/.config/k9s/plugins.yaml
 # VS Code settings
 
 $SCRIPT_LOCATION/apply_vscode_settings.sh
+
+# Link VSCode KIO service menu
+mkdir -p ~/.local/share/kio/servicemenus
+ln -sf ~/.dotfiles/dotfiles/kio/vscode.desktop ~/.local/share/kio/servicemenus/vscode.desktop

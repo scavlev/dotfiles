@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Service
+MimeType=all/all;
+Actions=openInVSCode;
+X-KDE-Priority=TopLevel
+X-KDE-Submenu=
+
+[Desktop Action openInVSCode]
+Name=Open in Visual Studio Code
+Icon=visual-studio-code
+Exec=code %F

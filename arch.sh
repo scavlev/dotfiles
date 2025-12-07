@@ -45,7 +45,8 @@ brew install --ignore-dependencies \
   utkuozdemir/pv-migrate/pv-migrate \
   int128/kubelogin/kubelogin \
   k9s \
-  biome
+  biome \
+  yt-dlp
 
 #===============================================================================
 # Package Installation (yay)
